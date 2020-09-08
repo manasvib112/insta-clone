@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import M from 'materialize-css'
 import {useHistory} from 'react-router-dom'
 
@@ -8,29 +8,13 @@ const CreatePost = ()=>{
     const [body,setBody]=useState("")
     const [image,setImage]=useState("")
     const [url,setUrl]=useState("")
-
-    const postDetails = ()=>{
-        const data = new FormData()
-        data.append("file",image)
-        data.append("upload_preset","insta-clone")
-        data.append("cloud_name","devclouds")
-        fetch("https://api.cloudinary.com/v1_1/devclouds/image/upload",{
-            method:"post",
-            body:data
-        })
-        .then(res=>res.json())
-        .then(data=>{
-            setUrl(data.url)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-
+    useEffect(()=>{
+        if(url){
         fetch("/createpost",{
             method:"post",
             headers:{
                 "Content-Type":"application/json",
-                "Authorization":"Bearer"+localStorage.getItem("jwt")
+                "Authorization":"Bearer "+localStorage.getItem("jwt")
             },
             body:JSON.stringify({
                 title,
@@ -50,6 +34,29 @@ const CreatePost = ()=>{
         }).catch(err=>{
             console.log(err)
         })
+        }
+    },[url])
+
+    const postDetails = ()=>{
+
+        console.log("data->",title,body,image)
+        const data = new FormData()
+        data.append("file",image)
+        data.append("upload_preset","insta-clone")
+        data.append("cloud_name","devclouds")
+        fetch("https://api.cloudinary.com/v1_1/devclouds/image/upload",{
+            method:"post",
+            body:data
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            setUrl(data.url)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
+
     }
 
     return(
