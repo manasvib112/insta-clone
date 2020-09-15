@@ -6,9 +6,6 @@ const {MONGOURI} = require('./keys');
 //zAczPU1E7w0nSfxX
 
 
-
-
-
 mongoose.connect(MONGOURI,{
     useNewUrlParser: true,
     useUnifiedTopology: true 

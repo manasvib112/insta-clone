@@ -28,16 +28,16 @@ const Routing = ()=>{
     <Route exact path="/">
       <Home />
     </Route>
-    <Route path ="/signin">
+    <Route exact path ="/signin">
       <Signin />
     </Route>
-    <Route path ="/signup">
+    <Route exact path ="/signup">
       <Signup />
     </Route>
-    <Route path ="/profile">
+    <Route exact path ="/profile">
       <Profile />
     </Route>
-    <Route path ="/create">
+    <Route exact path ="/create">
       <CreatePost/>
     </Route>
     </Switch>
@@ -57,3 +57,4 @@ function App() {
 }
 
 export default App
+
